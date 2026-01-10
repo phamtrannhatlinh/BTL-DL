@@ -69,13 +69,13 @@ Báo cáo này tập trung vào bài toán dự báo năng lượng tiêu thụ 
 
 ### 5.3 Kết quả định tính
 * **Biểu đồ dự báo tổng quát**:
-![Comparison](../figures/prediction_comparison.png)
+./figures/prediction_comparison.png
 
 * **Phân tích Attention qua các Layer/Head**:
-![Attention](../figures/attention_layers_heads_comparison.png)
+./figures/attention_layers_heads_comparison.png
 
 * **Tầm quan trọng của Đặc trưng**:
-![Feature Importance](../figures/feature_importance_saliency.png)
+./figures/feature_importance_saliency.png
 
 ---
 
@@ -95,11 +95,11 @@ Báo cáo này tập trung vào bài toán dự báo năng lượng tiêu thụ 
 
 ## 8. Phụ lục (Appendix)
 * **Cấu trúc thư mục**: 
-    - `data/`: Dữ liệu thô.
-    - `weights/`: Trọng số mô hình đã huấn luyện.
-    - `figures/`: Các biểu đồ phân tích.
+    - `./data/`: Dữ liệu thô.
+    - `./weights/`: Trọng số mô hình đã huấn luyện.
+    - `./figures/`: Các biểu đồ phân tích.
 * **Tiến trình hội tụ**:
-![Loss](../figures/training_loss_comparison.png)
+./figures/training_loss_comparison.png)
 
 ---
 
