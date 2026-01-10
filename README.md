@@ -68,6 +68,9 @@ Báo cáo này tập trung vào bài toán dự báo năng lượng tiêu thụ 
 | Transformer  |         4086.69 |           37.11 |           42.13 |
 | LSTM         |         5937.39 |           38.25 |           36.00 |
 
+* **So sánh định lượng giữa các mô hình**:
+![Combined Metrics Bar](./figures/combined_metrics_bar.png)
+
 ### 5.3 Kết quả định tính
 * **Biểu đồ dự báo trên tập Test**:
 ![Prediction Comparison](./figures/prediction_comparison.png)
@@ -77,6 +80,9 @@ Báo cáo này tập trung vào bài toán dự báo năng lượng tiêu thụ 
 
 * **Bản đồ quan trọng đặc trưng (Saliency Maps)**:
 ![Feature Importance](./figures/feature_importance_saliency.png)
+
+* **Tầm quan trọng của các bước thời gian (Temporal Importance)**:
+![Temporal Importance](./figures/attention_step_importance.png)
 
 ---
 
