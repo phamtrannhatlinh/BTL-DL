@@ -96,9 +96,16 @@ Báo cáo này tập trung vào bài toán dự báo năng lượng tiêu thụ 
 
 ## 8. Phụ lục (Appendix)
 * **Cấu trúc thư mục code**: 
-    - `./data/`: Lưu trữ file CSV gốc.
-    - `./weights/`: Lưu trữ các checkpoint mô hình qua từng epoch.
-    - `./figures/`: Chứa các biểu đồ phân tích sâu.
+├── data/                    # Chứa tập dữ liệu gốc (.csv)
+├── evals/                   # Lưu trữ các tệp kết quả đo đạc (.csv)
+├── figures/                 # Chứa các biểu đồ so sánh, biểu đồ loss và heatmap
+├── inferences/              # Kết quả dự đoán trên toàn bộ tập test
+├── inferences_backtest/     # Biểu đồ mô phỏng dự đoán thực tế (backtest)
+├── logs/                    # Nhật ký huấn luyện (training log dưới dạng JSON)
+├── scalers/                 # Lưu trữ bộ tiền xử lý MinMaxScaler đã fit (.pkl)
+├── weights/                 # Lưu trữ trọng số mô hình (.pth)
+├── README.md                # Tệp báo cáo chi tiết (Markdown)
+└── draft.ipynb              # Notebook chứa toàn bộ mã nguồn thử nghiệm và thực thi
 * **Biểu đồ hội tụ Loss trong quá trình huấn luyện**:
 ![Training Loss](./figures/training_loss_comparison.png)
 * **Kết quả Backtest thực tế**:
