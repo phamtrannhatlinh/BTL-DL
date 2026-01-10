@@ -1,7 +1,7 @@
 # BÁO CÁO ĐỒ ÁN: DỰ ĐOÁN NĂNG LƯỢNG TIÊU THỤ TRONG NHÀ THÔNG MINH
 
 ## Tóm tắt (Abstract)
-Báo cáo này tập trung vào bài toán dự báo năng lượng tiêu thụ của các thiết bị điện trong hộ gia đình. Bằng cách sử dụng tập dữ liệu **uci appliances energy prediction**, chúng tôi thực hiện so sánh hiệu quả giữa hai kiến trúc mạng nơ-ron sâu phổ biến: **Transformer** và **LSTM**. Kết quả thực nghiệm cho thấy Transformer vượt trội trong việc nắm bắt các phụ thuộc dài hạn, trong khi LSTM duy trì sự ổn định tốt trong các chuỗi dữ liệu ít biến động.
+Báo cáo này tập trung vào bài toán dự báo năng lượng tiêu thụ của các thiết bị điện trong hộ gia đình. Bằng cách sử dụng tập dữ liệu **uci appliances energy prediction**, chúng em thực hiện so sánh hiệu quả giữa hai kiến trúc mạng nơ-ron sâu phổ biến: **Transformer** và **LSTM**. Kết quả thực nghiệm cho thấy Transformer vượt trội trong việc nắm bắt các phụ thuộc dài hạn, trong khi LSTM duy trì sự ổn định tốt trong các chuỗi dữ liệu ít biến động.
 
 ---
 
@@ -13,39 +13,40 @@ Báo cáo này tập trung vào bài toán dự báo năng lượng tiêu thụ 
 ---
 
 ## 2. Tổng quan lý thuyết (Related Work / Background)
-* **Dự báo chuỗi thời gian**: Khác với bài toán Computer Vision (Object Detection/Segmentation), dự báo chuỗi thời gian tập trung vào việc mô hình hóa các phụ thuộc theo thời gian.
+* **Dự báo chuỗi thời gian**: Khác với bài toán Computer Vision, dự báo chuỗi thời gian tập trung vào việc mô hình hóa các phụ thuộc theo thời gian của dữ liệu bảng.
 * **Phương pháp**:
-    - **LSTM**: Một dạng đặc biệt của RNN, giải quyết hiệu quả vấn đề mất mát đạo hàm.
-    - **Transformer**: Kiến trúc hiện đại dựa hoàn toàn trên cơ chế Self-Attention, cho phép xử lý song song và nắm bắt ngữ cảnh toàn cục.
-* **Lý do chọn**: Chúng tôi chọn Transformer để đánh giá khả năng của cơ chế Attention so với cách tiếp cận tuần tự truyền thống của LSTM.
+    - **LSTM**: Một dạng mạng nơ-ron hồi quy đặc biệt, giải quyết hiệu quả vấn đề mất mát đạo hàm thông qua các cổng (gates).
+    - **Transformer**: Kiến trúc hiện đại dựa trên cơ chế Self-Attention, cho phép xử lý song song và nắm bắt ngữ cảnh toàn cục hiệu quả hơn RNN.
+* **Lý do chọn**: Chúng em chọn Transformer để đánh giá khả năng của cơ chế Attention so với cách tiếp cận tuần tự truyền thống của LSTM trong bài toán năng lượng.
 
 ---
 
 ## 3. Dataset & Tiền xử lý dữ liệu
 ### 3.1 Dataset
 * **Tên dataset**: uci appliances energy prediction
-* **Số lượng mẫu**: 19735 bản ghi.
-* **Số lượng biến**: 27 đặc trưng môi trường.
-* **Định dạng nhãn**: Giá trị thực (Wh) biểu thị năng lượng tiêu thụ.
+* **Số lượng mẫu**: 19735 bản ghi thực tế.
+* **Số lượng biến**: 27 đặc trưng môi trường đầu vào.
+* **Định dạng nhãn**: Giá trị thực (Wh) biểu thị năng lượng tiêu thụ của Appliance.
 
 ### 3.2 Tiền xử lý
-* **Normalize**: Áp dụng MinMaxScaler để đưa dữ liệu về khoảng [0, 1].
-* **Sliding Window**: Sử dụng cửa sổ 14 bước thời gian để dự báo 1 bước tiếp theo.
-* **Chia tập dữ liệu**: Train 80%, Test 20% (theo trình tự thời gian, không xáo trộn).
+* **Normalize**: Áp dụng `MinMaxScaler` để đưa toàn bộ dữ liệu về khoảng [0, 1] nhằm tăng tốc độ hội tụ.
+* **Sliding Window**: Sử dụng cửa sổ 14 bước thời gian quá khứ để dự báo giá trị tại bước tiếp theo.
+* **Chia tập dữ liệu**: Train 79% và Test 21% (chia theo trình tự thời gian để đảm bảo tính khách quan của dự báo).
 
 ---
 
 ## 4. Phương pháp đề xuất (Methodology)
 ### 4.1 Kiến trúc mô hình
-* **Backbone**: Lớp Linear Projection kết hợp với Positional Encoding.
+* **Backbone**: Lớp Linear Projection kết hợp với Learned Positional Encoding.
 * **Mô hình chính**:
-    - **Transformer**: 2 lớp Encoder với 4 đầu Attention.
-    - **LSTM**: 2 lớp ẩn chồng nhau.
+    - **Transformer**: Cấu trúc gồm 2 lớp Encoder với 4 đầu Attention song song.
+    - **LSTM**: Cấu trúc gồm 2 lớp LSTM chồng nhau (stacked) với 128 đơn vị ẩn mỗi lớp.
+
 
 
 
 ### 4.2 Hàm mất mát (Loss Function)
-* **MSE Loss**: Được sử dụng làm hàm tối ưu hóa chính để giảm thiểu sai số bình phương giữa giá trị thực và dự báo.
+* **MSE Loss**: Được chúng em sử dụng làm hàm mục tiêu để tối ưu hóa, giúp phạt nặng các sai số lớn trong dự báo năng lượng.
 
 ### 4.3 Thiết lập huấn luyện
 * **Optimizer**: Adam
@@ -57,9 +58,9 @@ Báo cáo này tập trung vào bài toán dự báo năng lượng tiêu thụ 
 
 ## 5. Thực nghiệm & Kết quả
 ### 5.1 Metric đánh giá
-* **MSE**: Sai số bình phương trung bình.
-* **MAE**: Sai số tuyệt đối trung bình.
-* **MAPE**: Tỷ lệ phần trăm sai số tuyệt đối.
+* **MSE**: Đánh giá độ lệch bình phương giữa dự báo và thực tế.
+* **MAE**: Sai số tuyệt đối trung bình, cho cái nhìn trực quan về đơn vị Wh.
+* **MAPE**: Đánh giá tỷ lệ phần trăm sai số, khách quan hơn khi quy mô dữ liệu thay đổi.
 
 ### 5.2 Kết quả định lượng
 | Model        | MSE             | MAE             | MAPE (%)        |
@@ -68,42 +69,45 @@ Báo cáo này tập trung vào bài toán dự báo năng lượng tiêu thụ 
 | LSTM         |         5937.39 |           38.25 |           36.00 |
 
 ### 5.3 Kết quả định tính
-* **Biểu đồ dự báo tổng quát**:
-./figures/prediction_comparison.png
+* **Biểu đồ dự báo trên tập Test**:
+![Prediction Comparison](./figures/prediction_comparison.png)
 
-* **Phân tích Attention qua các Layer/Head**:
-./figures/attention_layers_heads_comparison.png
+* **Phân tích Attention Maps (Multi-layer/Multi-head)**:
+![Attention Analysis](./figures/attention_layers_heads_comparison.png)
 
-* **Tầm quan trọng của Đặc trưng**:
-./figures/feature_importance_saliency.png
+* **Bản đồ quan trọng đặc trưng (Saliency Maps)**:
+![Feature Importance](./figures/feature_importance_saliency.png)
 
 ---
 
 ## 6. Phân tích & Thảo luận
-* **Phân tích lỗi**: Cả hai mô hình đều gặp khó khăn khi dự báo các điểm tiêu thụ năng lượng tăng vọt (spikes) do hành vi ngẫu nhiên của người dùng.
-* **Hoạt động kém**: Hiệu năng giảm nhẹ khi dữ liệu môi trường (độ ẩm bên ngoài) có sự thay đổi quá nhanh.
-* **Ưu điểm**: Transformer thể hiện sự nhạy bén vượt trội đối với các thay đổi xu hướng dài hạn.
+* **Phân tích lỗi**: Cả hai mô hình đều gặp khó khăn khi dự báo các điểm tiêu thụ năng lượng tăng vọt đột ngột (spikes) do các yếu tố ngẫu nhiên từ con người.
+* **Hoạt động kém**: Hiệu năng có xu hướng giảm khi chuỗi thời gian đầu vào chứa quá nhiều nhiễu từ các cảm biến môi trường bên ngoài.
+* **Ưu điểm**: Transformer thể hiện sự nhạy bén và khả năng giải thích (interpretability) tốt hơn thông qua các trọng số Attention.
 
 ---
 
 ## 7. Kết luận & Hướng phát triển
-* **Kết quả**: Xây dựng thành công pipeline dự báo với độ chính xác cao.
-* **Bài học**: Cơ chế Attention giúp việc giải thích mô hình (interpretability) trở nên trực quan hơn.
-* **Hướng phát triển**: Áp dụng các kiến trúc mới hơn như Informer hoặc PatchTST cho chuỗi thời gian dài.
+* **Kết quả**: Chúng em đã xây dựng thành công pipeline dự báo năng lượng và so sánh chi tiết hai kiến trúc Deep Learning.
+* **Bài học**: Việc xử lý đa tầng Attention giúp mô hình nắm bắt được cả xu hướng cục bộ và chu kỳ dài hạn.
+* **Hướng phát triển**: Tích hợp thêm các kỹ thuật như nhúng thời gian (Temporal Embedding) để mô hình hiểu được yếu tố giờ/ngày/tháng.
 
 ---
 
 ## 8. Phụ lục (Appendix)
-* **Cấu trúc thư mục**: 
-    - `./data/`: Dữ liệu thô.
-    - `./weights/`: Trọng số mô hình đã huấn luyện.
-    - `./figures/`: Các biểu đồ phân tích.
-* **Tiến trình hội tụ**:
-./figures/training_loss_comparison.png)
+* **Cấu trúc thư mục code**: 
+    - `./data/`: Lưu trữ file CSV gốc.
+    - `./weights/`: Lưu trữ các checkpoint mô hình qua từng epoch.
+    - `./figures/`: Chứa các biểu đồ phân tích sâu.
+* **Biểu đồ hội tụ Loss trong quá trình huấn luyện**:
+![Training Loss](./figures/training_loss_comparison.png)
+* **Kết quả Backtest thực tế**:
+    - Transformer: ![Transformer Backtest](./inferences_backtest/transformer_backtest.png)
+    - LSTM: ![LSTM Backtest](./inferences_backtest/lstm_backtest.png)
 
 ---
 
 ## Tài liệu tham khảo (References)
 1. Vaswani, A. et al. "Attention is All You Need" (2017).
-2. UCI Machine Learning Repository.
-3. PyTorch Deep Learning Framework documentation.
+2. UCI Machine Learning Repository - Appliances energy prediction.
+3. PyTorch Framework Documentation & Tutorials.
