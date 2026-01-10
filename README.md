@@ -95,7 +95,8 @@ Báo cáo này tập trung vào bài toán dự báo năng lượng tiêu thụ 
 ---
 
 ## 8. Phụ lục (Appendix)
-* **Cấu trúc thư mục code**: 
+* **Cấu trúc thư mục code**:
+
 ├── data/                    # Chứa tập dữ liệu gốc (.csv)
 ├── evals/                   # Lưu trữ các tệp kết quả đo đạc (.csv)
 ├── figures/                 # Chứa các biểu đồ so sánh, biểu đồ loss và heatmap
@@ -106,6 +107,7 @@ Báo cáo này tập trung vào bài toán dự báo năng lượng tiêu thụ 
 ├── weights/                 # Lưu trữ trọng số mô hình (.pth)
 ├── README.md                # Tệp báo cáo chi tiết (Markdown)
 └── draft.ipynb              # Notebook chứa toàn bộ mã nguồn thử nghiệm và thực thi
+
 * **Biểu đồ hội tụ Loss trong quá trình huấn luyện**:
 ![Training Loss](./figures/training_loss_comparison.png)
 * **Kết quả Backtest thực tế**:
