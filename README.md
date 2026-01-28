@@ -25,12 +25,50 @@ Báo cáo này tập trung vào bài toán dự báo năng lượng tiêu thụ 
 ### 3.1 Dataset
 * **Tên dataset**: uci appliances energy prediction
 * **Số lượng mẫu**: 19735 bản ghi thực tế.
-* **Số lượng biến**: 27 đặc trưng môi trường đầu vào.
+* **Số lượng biến**: 20 đặc trưng môi trường đầu vào.
 * **Định dạng nhãn**: Giá trị thực (Wh) biểu thị năng lượng tiêu thụ của Appliance.
 
-### 3.2 Tiền xử lý
+### 3.2 Thông tin bổ sung về các biến (Variables)
+* **date:** Thời gian (năm-tháng-ngày giờ:phút:giây).
+* **Appliances:** Năng lượng tiêu thụ của các thiết bị gia dụng (Wh).
+* **lights:** Năng lượng tiêu thụ của hệ thống chiếu sáng trong nhà (Wh).
+* **T1:** Nhiệt độ khu vực nhà bếp ().
+* **RH_1:** Độ ẩm khu vực nhà bếp (%).
+* **T2:** Nhiệt độ khu vực phòng khách ().
+* **RH_2:** Độ ẩm khu vực phòng khách (%).
+* **T3:** Nhiệt độ khu vực phòng giặt ủi ().
+* **RH_3:** Độ ẩm khu vực phòng giặt ủi (%).
+* **T4:** Nhiệt độ phòng làm việc ().
+* **RH_4:** Độ ẩm phòng làm việc (%).
+* **T5:** Nhiệt độ phòng tắm ().
+* **RH_5:** Độ ẩm phòng tắm (%).
+* **T6:** Nhiệt độ bên ngoài tòa nhà - phía Bắc ().
+* **RH_6:** Độ ẩm bên ngoài tòa nhà - phía Bắc (%).
+* **T7:** Nhiệt độ phòng ủi đồ ().
+* **RH_7:** Độ ẩm phòng ủi đồ (%).
+* **T8:** Nhiệt độ phòng ngủ thanh thiếu niên 2 ().
+* **RH_8:** Độ ẩm phòng ngủ thanh thiếu niên 2 (%).
+* **T9:** Nhiệt độ phòng ngủ cha mẹ ().
+* **RH_9:** Độ ẩm phòng ngủ cha mẹ (%).
+* **To:** Nhiệt độ bên ngoài - từ trạm khí tượng Chièvres ().
+* **Pressure:** Áp suất khí quyển - từ trạm khí tượng Chièvres (mm Hg).
+* **RH_out:** Độ ẩm bên ngoài - từ trạm khí tượng Chièvres (%).
+* **Wind speed:** Tốc độ gió - từ trạm khí tượng Chièvres (m/s).
+* **Visibility:** Tầm nhìn xa - từ trạm khí tượng Chièvres (km).
+* **Tdewpoint:** Điểm sương - từ trạm khí tượng Chièvres ().
+* **rv1:** Biến ngẫu nhiên 1 (không đơn vị).
+* **rv2:** Biến ngẫu nhiên 2 (không đơn vị).
+
+---
+
+**Nguồn dữ liệu thời tiết:**
+Tại các vị trí có đánh dấu, dữ liệu theo giờ (sau đó được nội suy) từ trạm khí tượng sân bay gần nhất (Sân bay Chièvres, Bỉ) đã được tải xuống từ tập dữ liệu công khai của Reliable Prognosis (rp5.ru). Quyền phân phối dữ liệu thời tiết trong vòng 4,5 tháng này đã được cấp bởi Reliable Prognosis.
+
+
+### 3.3 Tiền xử lý
+* **Loại bỏ biến không liên quan**: Xoá các cột như `date`, `rv1`, `rv2` và các biến môi trường ít ảnh hưởng để giảm nhiễu.
 * **Normalize**: Áp dụng `MinMaxScaler` để đưa toàn bộ dữ liệu về khoảng [0, 1] nhằm tăng tốc độ hội tụ.
-* **Sliding Window**: Sử dụng cửa sổ 14 bước thời gian quá khứ để dự báo giá trị tại bước tiếp theo.
+* **Sliding Window**: Sử dụng cửa sổ 13 bước thời gian quá khứ để dự báo giá trị tại bước tiếp theo.
 * **Chia tập dữ liệu**: Train 79% và Test 21% (chia theo trình tự thời gian để đảm bảo tính khách quan của dự báo).
 
 ---
@@ -51,7 +89,7 @@ Báo cáo này tập trung vào bài toán dự báo năng lượng tiêu thụ 
 ### 4.3 Thiết lập huấn luyện
 * **Optimizer**: Adam
 * **Learning rate**: 1e-05
-* **Epochs**: 150
+* **Epochs**: 50
 * **Batch size**: 1024
 
 ---
@@ -65,8 +103,8 @@ Báo cáo này tập trung vào bài toán dự báo năng lượng tiêu thụ 
 ### 5.2 Kết quả định lượng
 | Model        | MSE             | MAE             | MAPE (%)        |
 | :----------- | :-------------- | :-------------- | :-------------- |
-| Transformer  |         4086.69 |           37.11 |           42.13 |
-| LSTM         |         5937.39 |           38.25 |           36.00 |
+| Transformer  |         5608.35 |           43.19 |           47.45 |
+| LSTM         |         9046.17 |           66.33 |           86.28 |
 
 * **So sánh định lượng giữa các mô hình**:
 ![Combined Metrics Bar](./figures/combined_metrics_bar.png)
