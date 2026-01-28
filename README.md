@@ -59,6 +59,15 @@ Báo cáo này tập trung vào bài toán dự báo năng lượng tiêu thụ 
 * **rv1:** Biến ngẫu nhiên 1 (không đơn vị).
 * **rv2:** Biến ngẫu nhiên 2 (không đơn vị).
 
+* **Biểu đồ thô về biến Appliances**:
+![Appliances Raw Data](./figures/appliances_raw_data.png)
+
+* **Ma trận tương quan**:
+![Corr Matrix](./figures/initial_feature_correlation_matrix.png)
+
+* **Biểu đồ PACF**:
+![PACF Plot](./figures/pacf_optimal_lag_values.png)
+
 ---
 
 ### 3.3 Tiền xử lý
