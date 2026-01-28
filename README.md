@@ -61,9 +61,6 @@ Báo cáo này tập trung vào bài toán dự báo năng lượng tiêu thụ 
 
 ---
 
-**Nguồn dữ liệu thời tiết:**
-Tại các vị trí có đánh dấu, dữ liệu theo giờ (sau đó được nội suy) từ trạm khí tượng sân bay gần nhất (Sân bay Chièvres, Bỉ) đã được tải xuống từ tập dữ liệu công khai của Reliable Prognosis (rp5.ru). Quyền phân phối dữ liệu thời tiết trong vòng 4,5 tháng này đã được cấp bởi Reliable Prognosis.
-
 
 ### 3.3 Tiền xử lý
 * **Loại bỏ biến không liên quan**: Xoá các cột như `date`, `rv1`, `rv2` và các biến môi trường ít ảnh hưởng để giảm nhiễu.
