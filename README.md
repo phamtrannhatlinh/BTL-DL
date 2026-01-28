@@ -59,6 +59,8 @@ Báo cáo này tập trung vào bài toán dự báo năng lượng tiêu thụ 
 * **rv1:** Biến ngẫu nhiên 1 (không đơn vị).
 * **rv2:** Biến ngẫu nhiên 2 (không đơn vị).
 
+* **Ma trận tương quan**:
+![Correlation Matrix](./figures/initial_feature_correlation_matrix.png)
 ---
 
 
@@ -104,20 +106,20 @@ Báo cáo này tập trung vào bài toán dự báo năng lượng tiêu thụ 
 | LSTM         |         9046.17 |           66.33 |           86.28 |
 
 * **So sánh định lượng giữa các mô hình**:
-![Combined Metrics Bar](./figures/combined_metrics_bar.png)
+![Combined Metrics Bar](./figures/combined_metrics_bar_shuffle_True.png)
 
 ### 5.3 Kết quả định tính
 * **Biểu đồ dự báo trên tập Test**:
-![Prediction Comparison](./figures/prediction_comparison.png)
+![Prediction Comparison](./figures/prediction_comparison_shuffle_True.png)
 
 * **Phân tích Attention Maps (Multi-layer/Multi-head)**:
-![Attention Analysis](./figures/attention_layers_heads_comparison.png)
+![Attention Analysis](./figures/attention_layers_heads_comparison_shuffle_True.png)
 
 * **Bản đồ quan trọng đặc trưng (Saliency Maps)**:
-![Feature Importance](./figures/feature_importance_saliency.png)
+![Feature Importance](./figures/feature_importance_saliency_shuffle_True.png)
 
 * **Tầm quan trọng của các bước thời gian (Temporal Importance)**:
-![Temporal Importance](./figures/attention_step_importance.png)
+![Temporal Importance](./figures/attention_step_importance_shuffle_True.png)
 
 ---
 
@@ -152,10 +154,10 @@ Báo cáo này tập trung vào bài toán dự báo năng lượng tiêu thụ 
 ```
 
 * **Biểu đồ hội tụ Loss trong quá trình huấn luyện**:
-![Training Loss](./figures/training_loss_comparison.png)
+![Training Loss](./figures/training_loss_comparison_shuffle_True.png)
 * **Kết quả Backtest thực tế**:
-    - Transformer: ![Transformer Backtest](./inferences_backtest/transformer_backtest.png)
-    - LSTM: ![LSTM Backtest](./inferences_backtest/lstm_backtest.png)
+    - Transformer: ![Transformer Backtest](./inferences_backtest/transformer_shuffle_True_backtest.png)
+    - LSTM: ![LSTM Backtest](./inferences_backtest/lstm_shuffle_False_backtest.png)
 
 ---
 
