@@ -32,30 +32,30 @@ Báo cáo này tập trung vào bài toán dự báo năng lượng tiêu thụ 
 * **date:** Thời gian (năm-tháng-ngày giờ:phút:giây).
 * **Appliances:** Năng lượng tiêu thụ của các thiết bị gia dụng (Wh).
 * **lights:** Năng lượng tiêu thụ của hệ thống chiếu sáng trong nhà (Wh).
-* **T1:** Nhiệt độ khu vực nhà bếp ().
+* **T1:** Nhiệt độ khu vực nhà bếp (độ C).
 * **RH_1:** Độ ẩm khu vực nhà bếp (%).
-* **T2:** Nhiệt độ khu vực phòng khách ().
+* **T2:** Nhiệt độ khu vực phòng khách (độ C).
 * **RH_2:** Độ ẩm khu vực phòng khách (%).
-* **T3:** Nhiệt độ khu vực phòng giặt ủi ().
+* **T3:** Nhiệt độ khu vực phòng giặt ủi (độ C).
 * **RH_3:** Độ ẩm khu vực phòng giặt ủi (%).
-* **T4:** Nhiệt độ phòng làm việc ().
+* **T4:** Nhiệt độ phòng làm việc (độ C).
 * **RH_4:** Độ ẩm phòng làm việc (%).
-* **T5:** Nhiệt độ phòng tắm ().
+* **T5:** Nhiệt độ phòng tắm (độ C).
 * **RH_5:** Độ ẩm phòng tắm (%).
-* **T6:** Nhiệt độ bên ngoài tòa nhà - phía Bắc ().
+* **T6:** Nhiệt độ bên ngoài tòa nhà - phía Bắc (độ C).
 * **RH_6:** Độ ẩm bên ngoài tòa nhà - phía Bắc (%).
-* **T7:** Nhiệt độ phòng ủi đồ ().
+* **T7:** Nhiệt độ phòng ủi đồ (độ C).
 * **RH_7:** Độ ẩm phòng ủi đồ (%).
-* **T8:** Nhiệt độ phòng ngủ thanh thiếu niên 2 ().
+* **T8:** Nhiệt độ phòng ngủ thanh thiếu niên 2 (độ C).
 * **RH_8:** Độ ẩm phòng ngủ thanh thiếu niên 2 (%).
-* **T9:** Nhiệt độ phòng ngủ cha mẹ ().
+* **T9:** Nhiệt độ phòng ngủ cha mẹ (độ C).
 * **RH_9:** Độ ẩm phòng ngủ cha mẹ (%).
-* **To:** Nhiệt độ bên ngoài - từ trạm khí tượng Chièvres ().
+* **To:** Nhiệt độ bên ngoài - từ trạm khí tượng Chièvres (độ C).
 * **Pressure:** Áp suất khí quyển - từ trạm khí tượng Chièvres (mm Hg).
 * **RH_out:** Độ ẩm bên ngoài - từ trạm khí tượng Chièvres (%).
 * **Wind speed:** Tốc độ gió - từ trạm khí tượng Chièvres (m/s).
 * **Visibility:** Tầm nhìn xa - từ trạm khí tượng Chièvres (km).
-* **Tdewpoint:** Điểm sương - từ trạm khí tượng Chièvres ().
+* **Tdewpoint:** Điểm sương - từ trạm khí tượng Chièvres (độ C).
 * **rv1:** Biến ngẫu nhiên 1 (không đơn vị).
 * **rv2:** Biến ngẫu nhiên 2 (không đơn vị).
 
@@ -99,24 +99,24 @@ Báo cáo này tập trung vào bài toán dự báo năng lượng tiêu thụ 
 ### 5.2 Kết quả định lượng
 | Model        | MSE             | MAE             | MAPE (%)        |
 | :----------- | :-------------- | :-------------- | :-------------- |
-| Transformer  |         6499.46 |           48.23 |           56.57 |
-| LSTM         |         9288.00 |           69.94 |           93.29 |
+| Transformer  |         6470.80 |           45.53 |           50.53 |
+| LSTM         |         8399.73 |           64.68 |           84.16 |
 
 * **So sánh định lượng giữa các mô hình**:
-![Combined Metrics Bar](./figures/combined_metrics_bar.png)
+![Combined Metrics Bar](./figures/combined_metrics_bar_shuffle_True.png)
 
 ### 5.3 Kết quả định tính
 * **Biểu đồ dự báo trên tập Test**:
-![Prediction Comparison](./figures/prediction_comparison.png)
+![Prediction Comparison](./figures/prediction_comparison_shuffle_True.png)
 
 * **Phân tích Attention Maps (Multi-layer/Multi-head)**:
-![Attention Analysis](./figures/attention_layers_heads_comparison.png)
+![Attention Analysis](./figures/attention_layers_heads_comparison_shuffle_True.png)
 
 * **Bản đồ quan trọng đặc trưng (Saliency Maps)**:
-![Feature Importance](./figures/feature_importance_saliency.png)
+![Feature Importance](./figures/feature_importance_saliency_shuffle_True.png)
 
 * **Tầm quan trọng của các bước thời gian (Temporal Importance)**:
-![Temporal Importance](./figures/attention_step_importance.png)
+![Temporal Importance](./figures/attention_step_importance_shuffle_True.png)
 
 ---
 
@@ -140,7 +140,7 @@ Báo cáo này tập trung vào bài toán dự báo năng lượng tiêu thụ 
 ```text
 ├── data/                    # Chứa tập dữ liệu gốc (.csv)
 ├── evals/                   # Lưu trữ các tệp kết quả đo đạc (.csv)
-├── figures/                 # Chứa các biểu đồ so sánh, biểu đồ loss và heatmap
+├── figures/                 # Chứa các biểu đồ so sánh, biểu đồ loss, ...
 ├── inferences/              # Kết quả dự đoán trên toàn bộ tập test
 ├── inferences_backtest/     # Biểu đồ mô phỏng dự đoán thực tế (backtest)
 ├── logs/                    # Nhật ký huấn luyện (training log dưới dạng JSON)
@@ -151,10 +151,10 @@ Báo cáo này tập trung vào bài toán dự báo năng lượng tiêu thụ 
 ```
 
 * **Biểu đồ hội tụ Loss trong quá trình huấn luyện**:
-![Training Loss](./figures/training_loss_comparison.png)
+![Training Loss](./figures/training_loss_comparison_shuffle_True.png)
 * **Kết quả Backtest thực tế**:
-    - Transformer: ![Transformer Backtest](./inferences_backtest/transformer_backtest.png)
-    - LSTM: ![LSTM Backtest](./inferences_backtest/lstm_backtest.png)
+    - Transformer: ![Transformer Backtest](./inferences_backtest/transformer_shuffle_True_backtest.png)
+    - LSTM: ![LSTM Backtest](./inferences_backtest/lstm_shuffle_True_backtest.png)
 
 ---
 
