@@ -59,10 +59,7 @@ Báo cáo này tập trung vào bài toán dự báo năng lượng tiêu thụ 
 * **rv1:** Biến ngẫu nhiên 1 (không đơn vị).
 * **rv2:** Biến ngẫu nhiên 2 (không đơn vị).
 
-* **Ma trận tương quan**:
-![Correlation Matrix](./figures/initial_feature_correlation_matrix.png)
 ---
-
 
 ### 3.3 Tiền xử lý
 * **Loại bỏ biến không liên quan**: Xoá các cột như `date`, `rv1`, `rv2` và các biến môi trường ít ảnh hưởng để giảm nhiễu.
@@ -102,24 +99,24 @@ Báo cáo này tập trung vào bài toán dự báo năng lượng tiêu thụ 
 ### 5.2 Kết quả định lượng
 | Model        | MSE             | MAE             | MAPE (%)        |
 | :----------- | :-------------- | :-------------- | :-------------- |
-| Transformer  |         5608.35 |           43.19 |           47.45 |
-| LSTM         |         9046.17 |           66.33 |           86.28 |
+| Transformer  |         6499.46 |           48.23 |           56.57 |
+| LSTM         |         9288.00 |           69.94 |           93.29 |
 
 * **So sánh định lượng giữa các mô hình**:
-![Combined Metrics Bar](./figures/combined_metrics_bar_shuffle_True.png)
+![Combined Metrics Bar](./figures/combined_metrics_bar.png)
 
 ### 5.3 Kết quả định tính
 * **Biểu đồ dự báo trên tập Test**:
-![Prediction Comparison](./figures/prediction_comparison_shuffle_True.png)
+![Prediction Comparison](./figures/prediction_comparison.png)
 
 * **Phân tích Attention Maps (Multi-layer/Multi-head)**:
-![Attention Analysis](./figures/attention_layers_heads_comparison_shuffle_True.png)
+![Attention Analysis](./figures/attention_layers_heads_comparison.png)
 
 * **Bản đồ quan trọng đặc trưng (Saliency Maps)**:
-![Feature Importance](./figures/feature_importance_saliency_shuffle_True.png)
+![Feature Importance](./figures/feature_importance_saliency.png)
 
 * **Tầm quan trọng của các bước thời gian (Temporal Importance)**:
-![Temporal Importance](./figures/attention_step_importance_shuffle_True.png)
+![Temporal Importance](./figures/attention_step_importance.png)
 
 ---
 
@@ -154,10 +151,10 @@ Báo cáo này tập trung vào bài toán dự báo năng lượng tiêu thụ 
 ```
 
 * **Biểu đồ hội tụ Loss trong quá trình huấn luyện**:
-![Training Loss](./figures/training_loss_comparison_shuffle_True.png)
+![Training Loss](./figures/training_loss_comparison.png)
 * **Kết quả Backtest thực tế**:
-    - Transformer: ![Transformer Backtest](./inferences_backtest/transformer_shuffle_True_backtest.png)
-    - LSTM: ![LSTM Backtest](./inferences_backtest/lstm_shuffle_False_backtest.png)
+    - Transformer: ![Transformer Backtest](./inferences_backtest/transformer_backtest.png)
+    - LSTM: ![LSTM Backtest](./inferences_backtest/lstm_backtest.png)
 
 ---
 
